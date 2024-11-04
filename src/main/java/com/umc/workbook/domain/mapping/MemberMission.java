@@ -20,11 +20,11 @@ public class MemberMission extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private MissionStatus status; // 미션 진행 여부 (도전중, 완료)
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) // 프록시에서 조회
     @JoinColumn(name = "member_id")
     private Member member; // 멤버와 다대일 양방향
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) // 프록시에서 조회
     @JoinColumn(name = "mission_id")
     private Mission mission; // 미션과 다대일 양방향
 }

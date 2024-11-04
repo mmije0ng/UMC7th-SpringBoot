@@ -18,13 +18,16 @@ public class Store extends BaseEntity {
     private Long id; // pk
 
     @Column(nullable = false)
-    private String regionName; // 가게 이름
+    private String storeName; // 가게 이름
 
     @Column(columnDefinition = "json")
-    private String regionImage; // 가게 이미지 URL
+    private String storeImage; // 가게 이미지 URL
 
     @Column(nullable = false)
     private String storeAddress; // 가게 주소
+
+    @Column(nullable = false)
+    private Double score; // 리뷰 평점
 
     @Column(columnDefinition = "TINYINT(1) DEFAULT 0")
     private Boolean isOpen; // 영업 여부
@@ -35,4 +38,15 @@ public class Store extends BaseEntity {
 
     @OneToMany(mappedBy = "store", cascade = CascadeType.ALL)
     private List<Review> reviewList = new ArrayList<>(); // 리뷰와 일대다 양방향
+
+    @Override
+    public String toString() {
+        return "Store{" +
+                "id=" + id +
+                ", sotreName='" + storeName + '\'' +
+                ", storeAddress='" + storeAddress + '\'' +
+                ", score=" + score +
+                ", region=" + (region != null ? region.getRegionName() : "N/A") + // region의 이름 출력
+                '}';
+    }
 }
