@@ -18,6 +18,7 @@ public class MemberMission extends BaseEntity {
     private Long id; // pk
 
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(255) DEFAULT 'CHALLENGING'")
     private MissionStatus status; // 미션 진행 여부 (도전중, 완료)
 
     @ManyToOne(fetch = FetchType.LAZY) // 프록시에서 조회
