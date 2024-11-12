@@ -1,15 +1,17 @@
 package com.umc.workbook.dto;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+import org.springframework.data.domain.Page;
 
 public class MissionDto {
 
     @Getter
     @Setter
+    @SuperBuilder
     @NoArgsConstructor
     @AllArgsConstructor
-    @Builder
-    public static class MissionStatusResponse {
+    public static class StatusResponse {
         protected String missionContent; // 미션 내용
         protected Integer missionMoney; // 미션 기준 금액
         protected Integer missionPoint; // 미션 적립 포인트
@@ -19,9 +21,10 @@ public class MissionDto {
 
     @Getter
     @Setter
+    @SuperBuilder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class MissionDdayResponse extends MissionStatusResponse {
+    public static class DdayResponse extends StatusResponse {
         private String dDay; // 디데이
     }
 
@@ -30,8 +33,8 @@ public class MissionDto {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class HomeResponse {
+    public static class PagedHomeResponse {
         private Integer point; // 멤버 포인트
-        private MissionDdayResponse missionResponse;
+        private Page<DdayResponse> missions; // 페이지네이션이 적용된 미션목록
     }
 }

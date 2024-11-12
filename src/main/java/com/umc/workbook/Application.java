@@ -1,6 +1,7 @@
 package com.umc.workbook;
 
 import com.umc.workbook.dto.ReviewDto;
+import com.umc.workbook.service.MissionService.MissionQueryService;
 import com.umc.workbook.service.ReviewService.ReviewQueryService;
 import com.umc.workbook.service.StoreService.StoreQueryService;
 import org.springframework.boot.CommandLineRunner;
@@ -37,8 +38,6 @@ public class Application {
 
 			storeService.findStoresByNameAndScore(storeName, score)
 					.forEach(System.out::println);
-
-
 
 //			// 리뷰 작성
 //			ReviewQueryService reviewQueryService = context.getBean(ReviewQueryService.class);
