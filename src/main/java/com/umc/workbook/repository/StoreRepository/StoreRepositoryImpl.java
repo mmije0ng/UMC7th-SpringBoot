@@ -2,6 +2,7 @@ package com.umc.workbook.repository.StoreRepository;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.umc.workbook.domain.Member;
 import com.umc.workbook.domain.QStore;
 import com.umc.workbook.domain.Store;
 import lombok.RequiredArgsConstructor;
