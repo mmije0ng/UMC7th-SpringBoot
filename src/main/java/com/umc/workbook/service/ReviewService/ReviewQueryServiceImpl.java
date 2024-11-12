@@ -9,7 +9,6 @@ import com.umc.workbook.repository.StoreRepository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -26,7 +25,7 @@ public class ReviewQueryServiceImpl implements ReviewQueryService{
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("Member가 존재하지 않습니다."));
 
-        // reviewId에 해당하는 Store 조회
+        // storeId에 해당하는 Store 조회
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new IllegalArgumentException("Store가 존재하지 않습니다."));
 

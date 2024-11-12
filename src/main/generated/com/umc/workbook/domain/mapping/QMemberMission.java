@@ -27,6 +27,8 @@ public class QMemberMission extends EntityPathBase<MemberMission> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
+    public final DateTimePath<java.time.LocalDateTime> expiredAt = createDateTime("expiredAt", java.time.LocalDateTime.class);
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final com.umc.workbook.domain.QMember member;

@@ -4,7 +4,9 @@ import com.umc.workbook.domain.commons.BaseEntity;
 import com.umc.workbook.domain.mapping.MemberMission;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 

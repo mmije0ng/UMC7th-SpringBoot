@@ -38,6 +38,8 @@ public class Application {
 			storeService.findStoresByNameAndScore(storeName, score)
 					.forEach(System.out::println);
 
+
+
 //			// 리뷰 작성
 //			ReviewQueryService reviewQueryService = context.getBean(ReviewQueryService.class);
 //			Long memberId = 1L;
