@@ -1,4 +1,4 @@
-package com.umc.workbook;
+package com.umc.workbook.config;
 
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;

@@ -7,7 +7,7 @@ import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.NumberTemplate;
 import com.querydsl.core.types.dsl.PathBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.umc.workbook.QueryDSLSortUtil;
+import com.umc.workbook.config.QueryDSLSortUtil;
 import com.umc.workbook.domain.Mission;
 import com.umc.workbook.domain.QMission;
 import com.umc.workbook.domain.QRegion;
