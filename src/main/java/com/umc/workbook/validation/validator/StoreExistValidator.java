@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 public class StoreExistValidator implements ConstraintValidator  <ExistStore, Long> {
 
     private final StoreRepository storeRepository;
+    private String fieldName;
 
     @Override
     public void initialize(ExistStore constraintAnnotation) {

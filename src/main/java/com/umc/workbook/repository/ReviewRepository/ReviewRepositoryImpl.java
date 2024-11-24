@@ -2,10 +2,8 @@ package com.umc.workbook.repository.ReviewRepository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.umc.workbook.domain.*;
-import com.umc.workbook.dto.ReviewDto;
-import com.umc.workbook.repository.MemberRepository.MemberRepository;
+import com.umc.workbook.dto.ReviewRequest;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -33,7 +31,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     // 리뷰 등록
     @Override
     @Transactional
-    public void insertReview(Member member, Store store, ReviewDto.InsertRequest requestDto) {
+    public void insertReview(Member member, Store store, ReviewRequest.InsertDTO requestDto) {
         // 리뷰 이미지 리스트를 JSON 문자열로 변환
         String imageJson = convertImageListToJson(requestDto.getReviewImageList());
 

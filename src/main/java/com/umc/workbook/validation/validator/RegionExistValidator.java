@@ -15,23 +15,24 @@ import org.springframework.stereotype.Component;
 public class RegionExistValidator implements ConstraintValidator <ExistRegion, Long> {
     
     private final RegionRepository regionRepository;
-    
+    private String fieldName; // 잘못된 필드명
+
     @Override
     public void initialize(ExistRegion constraintAnnotation) {
-        ConstraintValidator.super.initialize(constraintAnnotation);
+        this.fieldName = constraintAnnotation.fieldName(); // 어노테이션의 필드 이름 설정
     }
 
     @Override
     public boolean isValid(Long value, ConstraintValidatorContext context) {
         // 파라미터로 넘어온 지역 아이디가 존재하는 아이디인지 검증
         boolean isValid = regionRepository.existsById(value);
-        
+
         // false이면 REGION_NOT_FOUND 에러 던지기
         if(!isValid){
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate(ErrorStatus.REGION_NOT_FOUND.toString()).addConstraintViolation();
         }
-        
+
         return isValid;
     }
 }

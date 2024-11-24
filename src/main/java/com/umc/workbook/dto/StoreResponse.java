@@ -12,8 +12,8 @@ public class StoreResponse {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class RegionResultDTO{ // 지역에 가게 추가
+    public static class CreateResultDTO { // 지역에 가게 추가
         Long storeId; // 가게 아이디
-        String storeName; // 가게 이름
+        LocalDateTime createdAt; // 생성일자
     }
 }
