@@ -1,4 +1,4 @@
-package com.umc.workbook.dto;
+package com.umc.workbook.dto.review;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -11,7 +11,7 @@ public class ReviewRequest {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
-    public static class InsertDTO {
+    public static class CreateDTO {
         @NotNull
         private Double reviewScore; // 리뷰 평점
         @NotNull

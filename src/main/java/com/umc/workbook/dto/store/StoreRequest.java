@@ -1,4 +1,4 @@
-package com.umc.workbook.dto;
+package com.umc.workbook.dto.store;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

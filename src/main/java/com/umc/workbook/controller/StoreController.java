@@ -1,9 +1,11 @@
 package com.umc.workbook.controller;
 
 import com.umc.workbook.apiPayload.ApiResponse;
-import com.umc.workbook.dto.StoreRequest;
-import com.umc.workbook.dto.StoreResponse;
-import com.umc.workbook.service.StoreService.StoreQueryService;
+import com.umc.workbook.dto.mission.MissionRequest;
+import com.umc.workbook.dto.mission.MissionResponse;
+import com.umc.workbook.dto.store.StoreRequest;
+import com.umc.workbook.dto.store.StoreResponse;
+import com.umc.workbook.service.StoreService.StoreCommandService;
 import com.umc.workbook.validation.annotation.ExistRegion;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -16,13 +18,21 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/store")
 public class StoreController {
 
-    private final StoreQueryService storeQueryService;
+    private final StoreCommandService storeCommandService;
+    private final
 
     // 특정 지역에 가게 추가하기
     @PostMapping
     ApiResponse<StoreResponse.CreateResultDTO> createStore (@RequestParam(name = "regionId") @ExistRegion Long regionId,
                                             @RequestBody @Valid StoreRequest.CreateDTO request) {
-        StoreResponse.CreateResultDTO result = storeQueryService.addStore(regionId, request);
+        StoreResponse.CreateResultDTO result = storeCommandService.addStore(regionId, request);
         return ApiResponse.onSuccess(result);
     }
+
+//    // 가게에 미션 추가
+//    @PostMapping
+//    ApiResponse<MissionResponse.CreateResultDTO> createMission (@RequestParam(name = "storeId") @ExistRegion Long storeId,
+//                                                                @RequestBody @Valid MissionRequest.CreateDTO request){
+//
+//    }
 }

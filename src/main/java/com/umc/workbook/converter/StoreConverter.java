@@ -1,8 +1,8 @@
 package com.umc.workbook.converter;
 
 import com.umc.workbook.domain.Store;
-import com.umc.workbook.dto.StoreRequest;
-import com.umc.workbook.dto.StoreResponse;
+import com.umc.workbook.dto.store.StoreRequest;
+import com.umc.workbook.dto.store.StoreResponse;
 
 public class StoreConverter {
 

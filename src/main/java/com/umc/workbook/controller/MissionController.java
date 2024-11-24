@@ -1,7 +1,7 @@
 package com.umc.workbook.controller;
 
 import com.umc.workbook.domain.enums.MissionStatus;
-import com.umc.workbook.dto.MissionDto;
+import com.umc.workbook.dto.mission.MissionDto;
 import com.umc.workbook.service.MissionService.MissionQueryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

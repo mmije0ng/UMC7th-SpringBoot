@@ -1,9 +1,9 @@
 package com.umc.workbook.controller;
 
 import com.umc.workbook.apiPayload.ApiResponse;
-import com.umc.workbook.dto.ReviewRequest;
-import com.umc.workbook.dto.ReviewResponse;
-import com.umc.workbook.service.ReviewService.ReviewQueryService;
+import com.umc.workbook.dto.review.ReviewRequest;
+import com.umc.workbook.dto.review.ReviewResponse;
+import com.umc.workbook.service.ReviewService.ReviewCommandService;
 import com.umc.workbook.validation.annotation.ExistMember;
 import com.umc.workbook.validation.annotation.ExistStore;
 import jakarta.validation.Valid;
@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/review")
 public class ReviewController {
 
-    private final ReviewQueryService reviewQueryService;
+    private final ReviewCommandService reviewCommandService;
 
     // 리뷰 추가
     @PostMapping
     ApiResponse<ReviewResponse.CreateResultDTO> createReview (@RequestParam(name = "memberId") @ExistMember Long memberId,
                                                              @RequestParam(name="storeId") @ExistStore Long storeId,
-                                                             @RequestBody @Valid ReviewRequest.InsertDTO request) {
-        ReviewResponse.CreateResultDTO result = reviewQueryService.addReview(memberId, storeId, request);
+                                                             @RequestBody @Valid ReviewRequest.CreateDTO request) {
+        ReviewResponse.CreateResultDTO result = reviewCommandService.addReview(memberId, storeId, request);
         return ApiResponse.onSuccess(result);
     }
 }

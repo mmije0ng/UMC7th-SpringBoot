@@ -1,4 +1,4 @@
-package com.umc.workbook.dto;
+package com.umc.workbook.dto.member;
 
 import com.umc.workbook.domain.enums.Gender;
 import com.umc.workbook.validation.annotation.ExistCategories;

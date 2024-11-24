@@ -1,6 +1,6 @@
 package com.umc.workbook.service.MemberService;
 
-import com.umc.workbook.dto.MemberResponse;
+import com.umc.workbook.dto.member.MemberResponse;
 import com.umc.workbook.repository.MemberRepository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

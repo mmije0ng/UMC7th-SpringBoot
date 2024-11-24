@@ -7,7 +7,7 @@ import com.umc.workbook.converter.MemberPretendFoodConverter;
 import com.umc.workbook.domain.FoodCategory;
 import com.umc.workbook.domain.Member;
 import com.umc.workbook.domain.mapping.MemberPretendFood;
-import com.umc.workbook.dto.MemberRequest;
+import com.umc.workbook.dto.member.MemberRequest;
 import com.umc.workbook.repository.FoodCategoryRepository.FoodCategoryRepository;
 import com.umc.workbook.repository.MemberRepository.MemberRepository;
 import lombok.RequiredArgsConstructor;
