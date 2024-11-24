@@ -1,8 +1,12 @@
 package com.umc.workbook.domain;
 
 import com.umc.workbook.domain.commons.BaseEntity;
+import com.umc.workbook.domain.mapping.MemberMission;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Builder
@@ -30,4 +34,5 @@ public class Review extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store; // 가게와 다대일
+
 }
