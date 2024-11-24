@@ -6,6 +6,8 @@ import com.umc.workbook.domain.mapping.MemberMission;
 import com.umc.workbook.domain.mapping.MemberPretendFood;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,6 +17,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@DynamicInsert
+@DynamicUpdate //  insert와 update 시 null 인 경우는 그냥 쿼리를 보내지 않도록
 @Entity // 멤버
 public class Member extends BaseEntity {
     @Id
@@ -39,7 +43,7 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private String memberAddress; // 주소
 
-    @Column(nullable = false)
+    @Column
     private String email; // 이메일
 
     @Column(nullable = false, length = 20)

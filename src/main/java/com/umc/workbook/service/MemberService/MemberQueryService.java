@@ -1,8 +1,8 @@
 package com.umc.workbook.service.MemberService;
 
-import com.umc.workbook.dto.MemberDto;
+import com.umc.workbook.dto.MemberResponse;
 
 public interface MemberQueryService {
     // 마이페이지 조회
-    MemberDto.MyPage findMemberByForMyPage(Long memberId);
+    MemberResponse.MyPageDTO findMemberByForMyPage(Long memberId);
 }
