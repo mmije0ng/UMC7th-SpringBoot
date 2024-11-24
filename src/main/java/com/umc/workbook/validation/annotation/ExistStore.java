@@ -1,6 +1,5 @@
 package com.umc.workbook.validation.annotation;
 
-import com.umc.workbook.validation.validator.RegionExistValidator;
 import com.umc.workbook.validation.validator.StoreExistValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

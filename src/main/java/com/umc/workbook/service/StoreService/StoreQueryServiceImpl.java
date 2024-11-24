@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +31,7 @@ public class StoreQueryServiceImpl implements StoreQueryService{
         store.setRegion(region);
         storeRepository.save(store); // store 엔티티 저장
 
-        return StoreConverter.createResultDTO(store);
+        return StoreConverter.toCreateResultDTO(store);
     }
 
     @Override

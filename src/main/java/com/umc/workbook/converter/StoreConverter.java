@@ -16,7 +16,7 @@ public class StoreConverter {
     }
 
     // 등록 성공 dto로 변환
-    public static StoreResponse.CreateResultDTO createResultDTO(Store store){
+    public static StoreResponse.CreateResultDTO toCreateResultDTO(Store store){
         return StoreResponse.CreateResultDTO.builder()
                 .storeId(store.getId())
                 .createdAt(store.getCreatedAt())
