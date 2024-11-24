@@ -21,10 +21,10 @@ public class ReviewController {
 
     // 리뷰 추가
     @PostMapping
-    ApiResponse<ReviewResponse.CreateResultDTO> createReview (@RequestParam(name = "memberId") @ExistMember Long memberId,
-                                                             @RequestParam(name="storeId") @ExistStore Long storeId,
-                                                             @RequestBody @Valid ReviewRequest.CreateDTO request) {
-        ReviewResponse.CreateResultDTO result = reviewCommandService.addReview(memberId, storeId, request);
+    ApiResponse<ReviewResponse.CreateReviewResultDTO> createReview (@RequestParam(name = "memberId") @ExistMember Long memberId,
+                                                                    @RequestParam(name="storeId") @ExistStore Long storeId,
+                                                                    @RequestBody @Valid ReviewRequest.CreateReviewDTO request) {
+        ReviewResponse.CreateReviewResultDTO result = reviewCommandService.addReview(memberId, storeId, request);
         return ApiResponse.onSuccess(result);
     }
 }

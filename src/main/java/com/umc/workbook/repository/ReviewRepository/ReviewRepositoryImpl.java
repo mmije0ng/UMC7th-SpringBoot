@@ -31,7 +31,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     // 리뷰 등록
     @Override
     @Transactional
-    public void insertReview(Member member, Store store, ReviewRequest.CreateDTO requestDto) {
+    public void insertReview(Member member, Store store, ReviewRequest.CreateReviewDTO requestDto) {
         // 리뷰 이미지 리스트를 JSON 문자열로 변환
         String imageJson = convertImageListToJson(requestDto.getReviewImageList());
 

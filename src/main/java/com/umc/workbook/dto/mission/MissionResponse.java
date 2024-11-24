@@ -13,7 +13,7 @@ public class MissionResponse {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CreateResultDTO { // 미션 등록
+    public static class CreateMissionResultDTO { // 미션 등록
         Long missionId; // 미션 아이디
         LocalDateTime createdAt; // 생성일자
     }

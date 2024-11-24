@@ -29,7 +29,7 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
     // 리뷰 등록
     @Override
     @Transactional
-    public ReviewResponse.CreateResultDTO addReview(Long memberId, Long storeId, ReviewRequest.CreateDTO request) {
+    public ReviewResponse.CreateReviewResultDTO addReview(Long memberId, Long storeId, ReviewRequest.CreateReviewDTO request) {
         Member member = memberRepository.findById(memberId).get(); // 멤버 조회
         Store store = storeRepository.findById(storeId).get(); // 가게 조회
 

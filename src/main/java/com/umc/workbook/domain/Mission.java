@@ -37,4 +37,10 @@ public class Mission extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "store_id")
     private Store store; // 가게와 다대일 단방향
+
+
+    // 가게와 단방향 연관관계 추가
+    public void setStore(Store store){
+        this.store = store;
+    }
 }

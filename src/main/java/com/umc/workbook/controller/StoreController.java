@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 public class StoreController {
 
     private final StoreCommandService storeCommandService;
-    private final
 
     // 특정 지역에 가게 추가하기
     @PostMapping
@@ -29,10 +28,4 @@ public class StoreController {
         return ApiResponse.onSuccess(result);
     }
 
-//    // 가게에 미션 추가
-//    @PostMapping
-//    ApiResponse<MissionResponse.CreateResultDTO> createMission (@RequestParam(name = "storeId") @ExistRegion Long storeId,
-//                                                                @RequestBody @Valid MissionRequest.CreateDTO request){
-//
-//    }
 }

@@ -13,7 +13,7 @@ public class ReviewResponse {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CreateResultDTO { // 리뷰 등록
+    public static class CreateReviewResultDTO { // 리뷰 등록
         Long reviewId; // 리뷰 아이디
         LocalDateTime createdAt; // 생성일자
     }

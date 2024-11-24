@@ -1,29 +1,39 @@
 package com.umc.workbook.controller;
 
+import com.umc.workbook.apiPayload.ApiResponse;
 import com.umc.workbook.domain.enums.MissionStatus;
 import com.umc.workbook.dto.mission.MissionDto;
+import com.umc.workbook.dto.mission.MissionRequest;
+import com.umc.workbook.dto.mission.MissionResponse;
+import com.umc.workbook.service.MissionService.MissionCommandService;
 import com.umc.workbook.service.MissionService.MissionQueryService;
+import com.umc.workbook.validation.annotation.ExistStore;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
+@Validated
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/mission")
 public class MissionController {
     private final MissionQueryService missionQueryService;
+    private final MissionCommandService missionCommandService;
 
-    @Autowired
-    public MissionController(MissionQueryService missionQueryService) {
-        this.missionQueryService = missionQueryService;
-
+    // 가게에 미션 추가
+    @PostMapping
+    ApiResponse<MissionResponse.CreateMissionResultDTO> createMission (@RequestParam(name = "storeId") @ExistStore Long storeId,
+                                                                       @RequestBody @Valid MissionRequest.CreateMissionDTO request){
+        MissionResponse.CreateMissionResultDTO response = missionCommandService.addMission(storeId, request);
+        return ApiResponse.onSuccess(response);
     }
+
 
     // 멤버별 진행중인 미션 불러오기
     // localhost:8080/api/mission/challenging?memberId={memberId}&pageNumber={pageNumber}

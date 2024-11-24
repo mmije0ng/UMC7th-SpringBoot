@@ -6,5 +6,5 @@ import com.umc.workbook.dto.review.ReviewRequest;
 
 public interface ReviewRepositoryCustom {
     // 리뷰 등록
-    void insertReview(Member member, Store store, ReviewRequest.CreateDTO requestDto);
+    void insertReview(Member member, Store store, ReviewRequest.CreateReviewDTO requestDto);
 }

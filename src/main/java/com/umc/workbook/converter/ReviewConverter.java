@@ -7,7 +7,7 @@ import com.umc.workbook.dto.review.ReviewResponse;
 public class ReviewConverter {
 
     // 리뷰 엔티티 전환
-    public static Review toReview(ReviewRequest.CreateDTO request){
+    public static Review toReview(ReviewRequest.CreateReviewDTO request){
         return Review.builder()
                 .reviewScore(request.getReviewScore())
                 .reviewContent(request.getReviewContent())
@@ -16,8 +16,8 @@ public class ReviewConverter {
     }
 
     // 리뷰 등록 응답 dto 전환
-    public static ReviewResponse.CreateResultDTO toCreateResultDto(Review review){
-        return ReviewResponse.CreateResultDTO.builder()
+    public static ReviewResponse.CreateReviewResultDTO toCreateResultDto(Review review){
+        return ReviewResponse.CreateReviewResultDTO.builder()
                 .reviewId(review.getId())
                 .createdAt(review.getCreatedAt())
                 .build();

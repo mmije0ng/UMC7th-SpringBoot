@@ -6,5 +6,5 @@ import com.umc.workbook.dto.review.ReviewResponse;
 public interface ReviewCommandService {
 
     // 리뷰 등록
-    ReviewResponse.CreateResultDTO addReview(Long memberId, Long storeId, ReviewRequest.CreateDTO requestDto);
+    ReviewResponse.CreateReviewResultDTO addReview(Long memberId, Long storeId, ReviewRequest.CreateReviewDTO requestDto);
 }
