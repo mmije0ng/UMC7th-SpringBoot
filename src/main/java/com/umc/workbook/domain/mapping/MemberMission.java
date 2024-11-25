@@ -45,4 +45,23 @@ public class MemberMission extends BaseEntity {
             expiredAt = LocalDateTime.now().plusDays(100).truncatedTo(ChronoUnit.SECONDS); // 100일 후로 기본값 설정
         }
     }
+
+    public void setMember(Member member){
+        if(this.member!=null)
+            member.getMemberMissionList().remove(this);
+
+        this.member = member;
+
+        // 멤버 엔티티에 멤버-미션 리스트 추가 (양방향 매핑이기 때문)
+        member.getMemberMissionList().add(this);
+    }
+
+    public void setMission(Mission mission){
+        if(this.mission!=null)
+            mission.getMemberMissionList().remove(this);
+
+        this.mission = mission;
+
+        mission.getMemberMissionList().add(this);
+    }
 }

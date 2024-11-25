@@ -1,6 +1,7 @@
 package com.umc.workbook.converter;
 
 import com.umc.workbook.domain.Mission;
+import com.umc.workbook.domain.mapping.MemberMission;
 import com.umc.workbook.dto.mission.MissionRequest;
 import com.umc.workbook.dto.mission.MissionResponse;
 
@@ -21,6 +22,16 @@ public class MissionConverter {
                 .builder()
                 .missionId(mission.getId())
                 .createdAt(mission.getCreatedAt())
+                .build();
+    }
+
+    // 멤버-미션 등록 응답 dto로 변환
+    public static MissionResponse.CreateMemberMissionResultDTO createMemberMissionResultDTO(MemberMission memberMission){
+        return MissionResponse.CreateMemberMissionResultDTO
+                .builder()
+                .missionContent(memberMission.getMission().getMissionContent())
+                .missionStatus(memberMission.getStatus().name())
+                .expiredAt(memberMission.getExpiredAt())
                 .build();
     }
 }

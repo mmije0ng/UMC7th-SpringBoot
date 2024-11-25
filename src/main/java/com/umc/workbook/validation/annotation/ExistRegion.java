@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 // 사용자 정의 어노테이션
 @Documented
 @Constraint(validatedBy = RegionExistValidator.class) // 검증 로직을 구현한 클래스 지정
-@Target({ElementType.PARAMETER, ElementType.FIELD}) // 어노테이션 적용 범위: 메서드 파라미터
+@Target({ElementType.PARAMETER, ElementType.FIELD}) // 어노테이션 적용 범위
 @Retention(RetentionPolicy.RUNTIME) // 런타임까지 유지
 public @interface ExistRegion {
 

@@ -1,10 +1,18 @@
 package com.umc.workbook.service.MissionService;
 
+import com.umc.workbook.apiPayload.code.status.ErrorStatus;
+import com.umc.workbook.apiPayload.exception.handler.MemberHandler;
+import com.umc.workbook.apiPayload.exception.handler.MissionHandler;
+import com.umc.workbook.converter.MemberMissionConverter;
 import com.umc.workbook.converter.MissionConverter;
+import com.umc.workbook.domain.Member;
 import com.umc.workbook.domain.Mission;
 import com.umc.workbook.domain.Store;
+import com.umc.workbook.domain.mapping.MemberMission;
 import com.umc.workbook.dto.mission.MissionRequest;
 import com.umc.workbook.dto.mission.MissionResponse;
+import com.umc.workbook.repository.MemberMissionRepository.MemberMissionRepository;
+import com.umc.workbook.repository.MemberRepository.MemberRepository;
 import com.umc.workbook.repository.MissionRepository.MissionRepository;
 import com.umc.workbook.repository.StoreRepository.StoreRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +28,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class MissionCommandServiceImpl implements MissionCommandService{
 
     private final MissionRepository missionRepository;
+    private final MemberRepository memberRepository;
+    private final MemberMissionRepository memberMissionRepository;
+
     private final StoreRepository storeRepository;
 
     @Override
@@ -32,5 +43,27 @@ public class MissionCommandServiceImpl implements MissionCommandService{
         missionRepository.save(mission); // 엔티티 등록
 
         return MissionConverter.toCreateResultDTO(mission);
+    }
+
+    @Override
+    @Transactional
+    public MissionResponse.CreateMemberMissionResultDTO addMemberMission(Long missionId, Long memberId) {
+        // 미션 검증
+        Mission mission = missionRepository.findById(missionId)
+                .orElseThrow(() -> new MissionHandler(ErrorStatus.MISSION_NOT_FOUND));
+
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
+
+        // status가 challenging인 멤버 미션 엔티티
+        MemberMission memberMission = MemberMissionConverter.toMemberMission();
+
+        // 양방향 연관관계 설정
+        memberMission.setMember(member);
+        memberMission.setMission(mission);
+
+        memberMissionRepository.save(memberMission);
+
+        return MissionConverter.createMemberMissionResultDTO(memberMission);
     }
 }
