@@ -52,6 +52,7 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
         return handleExceptionInternalArgs(e,HttpHeaders.EMPTY,ErrorStatus.valueOf("_BAD_REQUEST"),request,errors);
     }
 
+
     // 500 INTERNAL_SERVER_ERROR
     @ExceptionHandler
     public ResponseEntity<Object> exception(Exception e, WebRequest request) {

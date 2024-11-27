@@ -2,8 +2,8 @@ package com.umc.workbook.converter;
 
 import com.umc.workbook.domain.Member;
 import com.umc.workbook.domain.enums.Gender;
-import com.umc.workbook.dto.MemberRequest;
-import com.umc.workbook.dto.MemberResponse;
+import com.umc.workbook.dto.member.MemberRequest;
+import com.umc.workbook.dto.member.MemberResponse;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

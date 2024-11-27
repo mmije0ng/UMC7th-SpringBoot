@@ -1,6 +1,6 @@
 package com.umc.workbook.repository.MemberRepository;
 
-import com.umc.workbook.dto.MemberResponse;
+import com.umc.workbook.dto.member.MemberResponse;
 
 import java.util.Optional;
 

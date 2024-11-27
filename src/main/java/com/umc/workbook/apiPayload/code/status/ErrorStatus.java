@@ -18,7 +18,7 @@ public enum ErrorStatus implements BaseErrorCode {
 
 
     // 멤버 관려 에러
-    MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER4001", "사용자가 없습니다."),
+    MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER4001", "아이디와 일치하는 사용자가 없습니다."),
     NICKNAME_NOT_EXIST(HttpStatus.BAD_REQUEST, "MEMBER4002", "닉네임은 필수 입니다."),
 
     // 예시
@@ -28,7 +28,19 @@ public enum ErrorStatus implements BaseErrorCode {
     TEMP_EXCEPTION(HttpStatus.BAD_REQUEST, "TEMP4001", "이거는 테스트"),
 
     // 음식 카테고리
-    FOOD_CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "FOODCATEGORY4001", "아이디와 일치하는 음식 카테고리가 없습니다.");
+    FOOD_CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "FOODCATEGORY4001", "아이디와 일치하는 음식 카테고리가 없습니다."),
+
+    // 지역
+    REGION_NOT_FOUND(HttpStatus.BAD_REQUEST, "REGION4001", "아이디와 일치하는 지역이 없습니다."),
+
+    // 가게
+    STORE_NOT_FOUND(HttpStatus.BAD_REQUEST, "STORE4001", "아이디와 일치하는 가게가 없습니다."),
+
+    // 미션
+    MISSION_NOT_FOUND(HttpStatus.BAD_REQUEST, "MISSION4001", "존재하지 않는 미션입니다."),
+    MISSION_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "MISSION4002", "이미 도전 중 혹은 완료한 미션입니다."),
+    MISSION_STATUS_NOT_FOUND(HttpStatus.BAD_REQUEST, "MISSION4003", "존재하지 않는 미션 상태입니다.");
+
 
     private final HttpStatus httpStatus;
     private final String code;

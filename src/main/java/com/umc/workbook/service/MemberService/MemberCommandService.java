@@ -1,7 +1,7 @@
 package com.umc.workbook.service.MemberService;
 
 import com.umc.workbook.domain.Member;
-import com.umc.workbook.dto.MemberRequest;
+import com.umc.workbook.dto.member.MemberRequest;
 
 public interface MemberCommandService {
 

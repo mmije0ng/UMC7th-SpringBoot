@@ -1,13 +1,17 @@
 package com.umc.workbook.service.StoreService;
 
+import com.umc.workbook.converter.StoreConverter;
+import com.umc.workbook.domain.Region;
 import com.umc.workbook.domain.Store;
+import com.umc.workbook.dto.store.StoreRequest;
+import com.umc.workbook.dto.store.StoreResponse;
+import com.umc.workbook.repository.RegionRepository.RegionRepository;
 import com.umc.workbook.repository.StoreRepository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

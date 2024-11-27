@@ -15,4 +15,6 @@ public @interface ExistCategories {
     String message() default "해당하는 카테고리가 존재하지 않습니다.";
     Class <?>[] groups() default {};
     Class <? extends Payload> [] payload() default {};
+
+    String fieldName() default "memberId"; // 잘못된 필드 이름 포함
 }

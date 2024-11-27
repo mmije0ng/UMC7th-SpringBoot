@@ -1,4 +1,4 @@
-package com.umc.workbook.dto;
+package com.umc.workbook.dto.mission;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;

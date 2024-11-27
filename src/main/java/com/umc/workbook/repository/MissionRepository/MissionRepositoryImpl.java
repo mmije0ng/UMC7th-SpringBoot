@@ -14,7 +14,7 @@ import com.umc.workbook.domain.QRegion;
 import com.umc.workbook.domain.QStore;
 import com.umc.workbook.domain.enums.MissionStatus;
 import com.umc.workbook.domain.mapping.QMemberMission;
-import com.umc.workbook.dto.MissionDto;
+import com.umc.workbook.dto.mission.MissionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
