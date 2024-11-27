@@ -2,11 +2,9 @@ package com.umc.workbook.repository.MemberRepository;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.Tuple;
-import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.umc.workbook.domain.QMember;
-import com.umc.workbook.dto.MemberDto;
-import com.umc.workbook.repository.MemberRepository.MemberRepositoryCustom;
+import com.umc.workbook.dto.MemberResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +18,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
 
     // memberId로 마이페이지 조회
     @Override
-    public Optional<MemberDto.MyPage> findMemberByMemberIdForMyPage(Long memberId) {
+    public Optional<MemberResponse.MyPageDTO> findMemberByMemberIdForMyPage(Long memberId) {
         BooleanBuilder builder = new BooleanBuilder();
         builder.and(qMember.id.eq(memberId)); // memberId로 필터링
 
@@ -42,7 +40,7 @@ public class MemberRepositoryImpl implements MemberRepositoryCustom {
         }
 
         // 조회된 데이터를 MemberDto.MyPage로 매핑
-        MemberDto.MyPage memberData = new MemberDto.MyPage(
+        MemberResponse.MyPageDTO memberData = new MemberResponse.MyPageDTO(
                 result.get(qMember.nickName),
                 result.get(qMember.email),
                 result.get(qMember.isPhoneVerified),
