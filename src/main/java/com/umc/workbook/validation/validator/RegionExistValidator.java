@@ -1,7 +1,7 @@
 package com.umc.workbook.validation.validator;
 
 import com.umc.workbook.apiPayload.code.status.ErrorStatus;
-import com.umc.workbook.repository.RegionRepository.RegionRepository;
+import com.umc.workbook.service.RegionService.RegionQueryService;
 import com.umc.workbook.validation.annotation.ExistRegion;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RegionExistValidator implements ConstraintValidator <ExistRegion, Long> {
     
-    private final RegionRepository regionRepository;
+    private final RegionQueryService regionQueryService;
     private String fieldName; // 잘못된 필드명
 
     @Override
@@ -25,7 +25,7 @@ public class RegionExistValidator implements ConstraintValidator <ExistRegion, L
     @Override
     public boolean isValid(Long value, ConstraintValidatorContext context) {
         // 파라미터로 넘어온 지역 아이디가 존재하는 아이디인지 검증
-        boolean isValid = regionRepository.existsById(value);
+        boolean isValid = regionQueryService.existsRegionById(value);
 
         // false이면 REGION_NOT_FOUND 에러 던지기
         if(!isValid){

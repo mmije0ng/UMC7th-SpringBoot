@@ -49,7 +49,7 @@ public class MissionController {
                     @Parameter(name = "memberId", description = "멤버 ID", example = "1")
             }
     )
-    public ApiResponse<?> patchMissionStatusChallenging(
+    public ApiResponse<?> createMissionStatusChallenging(
             @RequestParam @ValidMissionStatus Map<String, String> params) {
 
         MissionResponse.CreateMemberMissionResultDTO result = missionCommandService.addMemberMission(Long.parseLong(params.get("missionId")), Long.parseLong(params.get("memberId")));

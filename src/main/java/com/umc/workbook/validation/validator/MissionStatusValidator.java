@@ -1,8 +1,7 @@
 package com.umc.workbook.validation.validator;
 
 import com.umc.workbook.apiPayload.code.status.ErrorStatus;
-import com.umc.workbook.domain.enums.MissionStatus;
-import com.umc.workbook.repository.MemberMissionRepository.MemberMissionRepository;
+import com.umc.workbook.service.MemberMissionService.MemberMissionQueryService;
 import com.umc.workbook.validation.annotation.ValidMissionStatus;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -15,7 +14,7 @@ import java.util.Map;
 @Component
 public class MissionStatusValidator implements ConstraintValidator<ValidMissionStatus, Map<String, String>> {
 
-    private final MemberMissionRepository memberMissionRepository;
+    private final MemberMissionQueryService memberMissionQueryService;
 
     private String missionIdField;
     private String memberIdField;
@@ -33,9 +32,7 @@ public class MissionStatusValidator implements ConstraintValidator<ValidMissionS
         Long memberId = Long.parseLong(params.get(memberIdField));
 
         // 존재 여부 확인
-        boolean exists = memberMissionRepository
-                .findMemberMissionByMissionIdAndMemberId(missionId, memberId)
-                .isPresent();
+        boolean exists = memberMissionQueryService.findMemberMissionByMissionIdAndMemberId(missionId, memberId);
 
         if (exists) {
             context.disableDefaultConstraintViolation();
