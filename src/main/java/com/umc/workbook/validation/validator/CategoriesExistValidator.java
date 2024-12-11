@@ -1,7 +1,7 @@
 package com.umc.workbook.validation.validator;
 
 import com.umc.workbook.apiPayload.code.status.ErrorStatus;
-import com.umc.workbook.repository.FoodCategoryRepository.FoodCategoryRepository;
+import com.umc.workbook.service.FoodCategoryService.FoodCategoryQueryService;
 import com.umc.workbook.validation.annotation.ExistCategories;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -18,7 +18,7 @@ import java.util.List;
 // isValid의 리턴 값이 false면 ConstraintViolationException 을 발생시킴
 public class CategoriesExistValidator implements ConstraintValidator<ExistCategories, List<Long>> {
 
-    private final FoodCategoryRepository foodCategoryRepository;
+    private final FoodCategoryQueryService foodCategoryQueryService;
 
     @Override
     public void initialize(ExistCategories constraintAnnotation) {
@@ -31,7 +31,7 @@ public class CategoriesExistValidator implements ConstraintValidator<ExistCatego
         // 검증 대상인 List<Long> 의 값을 가진 카테고리가 모두 데이터베이스에 있는 지를 판단
         // 하나라도 없다면 false를 반환
         boolean isValid = values.stream()
-                .allMatch( value -> foodCategoryRepository.existsById(value));
+                .allMatch(foodCategoryQueryService::existsFoodCategoryById);
 
         if(!isValid){
             context.disableDefaultConstraintViolation();

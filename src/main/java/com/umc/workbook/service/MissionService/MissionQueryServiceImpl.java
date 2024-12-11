@@ -56,5 +56,4 @@ public class MissionQueryServiceImpl implements MissionQueryService {
         // Page 객체로 반환
         return new MissionDto.PagedHomeResponse(member.getPoint(), pagedMissions);
     }
-
 }

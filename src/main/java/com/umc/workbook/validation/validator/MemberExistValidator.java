@@ -1,7 +1,7 @@
 package com.umc.workbook.validation.validator;
 
 import com.umc.workbook.apiPayload.code.status.ErrorStatus;
-import com.umc.workbook.repository.MemberRepository.MemberRepository;
+import com.umc.workbook.service.MemberService.MemberQueryService;
 import com.umc.workbook.validation.annotation.ExistMember;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MemberExistValidator implements ConstraintValidator <ExistMember,Long> {
 
-    private final MemberRepository memberRepository;
+    private final MemberQueryService memberQueryService;
 
     @Override
     public void initialize(ExistMember constraintAnnotation) {
@@ -24,7 +24,7 @@ public class MemberExistValidator implements ConstraintValidator <ExistMember,Lo
     @Override
     public boolean isValid(Long value, ConstraintValidatorContext context) {
         // 파라미터로 넘어온 지역 아이디가 존재하는 아이디인지 검증
-        boolean isValid = memberRepository.existsById(value);
+        boolean isValid = memberQueryService.existsMemberById(value);
 
         // false이면 MEMBER_NOT_FOUND 에러 던지기
         if(!isValid){

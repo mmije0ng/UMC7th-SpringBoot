@@ -1,8 +1,11 @@
 package com.umc.workbook.converter;
 
+import com.umc.workbook.domain.Review;
 import com.umc.workbook.domain.Store;
 import com.umc.workbook.dto.store.StoreRequest;
 import com.umc.workbook.dto.store.StoreResponse;
+
+import java.util.List;
 
 public class StoreConverter {
 
