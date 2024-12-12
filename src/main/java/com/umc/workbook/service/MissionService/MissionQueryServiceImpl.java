@@ -1,15 +1,23 @@
 package com.umc.workbook.service.MissionService;
 
+import com.umc.workbook.converter.MissionConverter;
 import com.umc.workbook.domain.Member;
 import com.umc.workbook.domain.Mission;
+import com.umc.workbook.domain.Store;
 import com.umc.workbook.domain.enums.MissionStatus;
+import com.umc.workbook.domain.mapping.MemberMission;
 import com.umc.workbook.dto.mission.MissionDto;
+import com.umc.workbook.dto.mission.MissionResponse;
+import com.umc.workbook.repository.MemberMissionRepository.MemberMissionRepository;
 import com.umc.workbook.repository.MemberRepository.MemberRepository;
 import com.umc.workbook.repository.MissionRepository.MissionRepository;
+import com.umc.workbook.repository.StoreRepository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -18,17 +26,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class MissionQueryServiceImpl implements MissionQueryService {
     private final MissionRepository missionRepository;
     private final MemberRepository memberRepository;
+    private final StoreRepository storeRepository;
+
+    private static final Integer PAGE_SIZE=10;
 
     // 페이지 정렬, 최신순
-    private Pageable pageRequest(Integer pageNumber, Integer pageSize) {
-        return PageRequest.of(pageNumber, pageSize, Sort.by("createdAt").ascending());
+    private Pageable pageRequest(Integer pageNumber) {
+        return PageRequest.of(pageNumber, PAGE_SIZE);
     }
 
     // 미션 상태별로 미션 조회
     @Override
     public Page<MissionDto.StatusResponse> pagedMissionsByMemberIdAndMissionStatus(Long memberId, MissionStatus missionStatus, Integer pageNumber) {
         // memberId가 일치하는 Mission 테이블을 미션 상태에 따라 가져오기
-        Page<Mission> pagedMissions = missionRepository.findAllMissionsByStatusAndMemberId(memberId, missionStatus, pageRequest(pageNumber, 3));
+        Page<Mission> pagedMissions = missionRepository.findAllMissionsByStatusAndMemberId(memberId, missionStatus, pageRequest(pageNumber));
 
         // Mission 엔티티를 MissionStatusResponse DTO로 매핑
         Page<MissionDto.StatusResponse> result = pagedMissions.map(mission -> MissionDto.StatusResponse.builder()
@@ -51,9 +62,18 @@ public class MissionQueryServiceImpl implements MissionQueryService {
 
         // memberId가 일치하는 Mission 테이블을 미션 상태에 따라 가져오기
         Page<MissionDto.DdayResponse> pagedMissions = missionRepository.findAllMissionsByMemberIdWithDday(
-                memberId, regionName, MissionStatus.CHALLENGING, pageRequest(pageNumber, 10));
+                memberId, regionName, MissionStatus.CHALLENGING, pageRequest(pageNumber));
 
         // Page 객체로 반환
         return new MissionDto.PagedHomeResponse(member.getPoint(), pagedMissions);
+    }
+
+    // 가게의 미션 목록 조회 (페이지네이션 적용)
+    @Override
+    public MissionResponse.StoreMissionPreViewListDTO getStoreMissionPage(Long storeId, Integer page) {
+        Store store = storeRepository.findById(storeId).get();
+        Page<Mission> storeMissionPage = missionRepository.findAllMissionByStoreId(storeId, pageRequest(page));
+
+        return MissionConverter.toStoreMissionPreViewListDTO(storeMissionPage, store.getStoreName());
     }
 }
