@@ -21,7 +21,7 @@ public class MissionQueryServiceImpl implements MissionQueryService {
 
     // 페이지 정렬, 최신순
     private Pageable pageRequest(Integer pageNumber, Integer pageSize) {
-        return PageRequest.of(pageNumber, pageSize, Sort.by("createdAt").descending());
+        return PageRequest.of(pageNumber, pageSize, Sort.by("createdAt").ascending());
     }
 
     // 미션 상태별로 미션 조회
