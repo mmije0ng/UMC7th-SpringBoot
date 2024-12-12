@@ -38,7 +38,7 @@ public class ReviewResponse {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ReviewPreViewDTO{ // 리뷰 응답
-        String ownerNickName; // 사장님 이름
+        String ownerNickName; // 리뷰 작성자 이름
         Float score; // 리뷰 평점
         String content; // 리뷰 내용
         LocalDate createdAt; // 작성 일자
