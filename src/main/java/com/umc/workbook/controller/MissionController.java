@@ -2,6 +2,8 @@ package com.umc.workbook.controller;
 
 import com.umc.workbook.apiPayload.ApiResponse;
 import com.umc.workbook.domain.enums.MissionStatus;
+import com.umc.workbook.domain.mapping.MemberMission;
+import com.umc.workbook.dto.member.MemberResponse;
 import com.umc.workbook.dto.mission.MissionDto;
 import com.umc.workbook.dto.mission.MissionRequest;
 import com.umc.workbook.dto.mission.MissionResponse;
@@ -63,34 +65,6 @@ public class MissionController {
     }
 
 
-    // 멤버별 진행중인 미션 불러오기
-    // localhost:8080/api/mission/challenging?memberId={memberId}&pageNumber={pageNumber}
-    @GetMapping("/challenging")
-    public ResponseEntity<?> getChallengingMissionPage(@RequestParam(name="memberId") Long memberId,
-                                                    @RequestParam(name="pageNumber") Integer pageNumber) throws Exception {
-        try {
-            Page<MissionDto.StatusResponse> challenginMissionPage = missionQueryService.pagedMissionsByMemberIdAndMissionStatus(memberId, MissionStatus.CHALLENGING, pageNumber);
-            return ResponseEntity.ok(challenginMissionPage);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(e.getMessage());
-        }
-    }
-
-    // 멤버별 진행완료된 미션 불러오기
-    // localhost:8080/api/mission/complete?memberId={memberId}&pageNumber={pageNumber}
-    @GetMapping("/complete")
-    public ResponseEntity<?> getCompleteMissionPage(@RequestParam(name="memberId") Long memberId,
-                                                       @RequestParam(name="pageNumber") Integer pageNumber) throws Exception {
-        try {
-            Page<MissionDto.StatusResponse> completeMissionPage = missionQueryService.pagedMissionsByMemberIdAndMissionStatus(memberId, MissionStatus.COMPLETE, pageNumber);
-            return ResponseEntity.ok(completeMissionPage);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(e.getMessage());
-        }
-    }
-
     // 특정 가게의 미션 목록 조회
     @GetMapping("/store")
     @Operation(summary = "특정 가게의 미션 목록 조회 API", description = "가게의 모든 미션 목록을 조회하는 API이며, 페이징을 포함합니다. query String 으로 page 번호를 주세요")
@@ -132,4 +106,55 @@ public class MissionController {
 
         return ApiResponse.onSuccess(response);
     }
+
+    // 멤버의 진행중인 미션을 진행완료로 변경
+    @PatchMapping("/member")
+    @Operation(summary = "멤버의 진행중인 미션을 진행완료로 변경하는 API", description = "멤버의 진행중인 미션을 진행완료로 변경하는 API 입니다. 해당 미션이 이미 진행완료된 경우, 변경이 불가능합니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200",description = "OK, 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH003", description = "access 토큰을 주세요!",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH004", description = "access 토큰 만료",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH006", description = "access 토큰 모양이 이상함",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+    })
+    @Parameters({
+            @Parameter(name = "memberId", description = "멤버의 아이디, query parameter 입니다."),
+            @Parameter(name = "missionId", description = "상태를 변경할 미션 아이디, query parameter 입니다.")
+    })
+    ApiResponse<MissionResponse.UpdateMissionStatusDTO> updateMemberMissionStatus (@RequestParam(name = "memberId") @ExistMember Long memberId,
+                                              @RequestParam(name = "missionId") Long missionId){
+
+        MissionResponse.UpdateMissionStatusDTO response = missionCommandService.setMemberMissionStatus(memberId, missionId);
+
+        return ApiResponse.onSuccess(response);
+    }
+
+
+//    // 멤버별 진행중인 미션 불러오기
+//    // localhost:8080/api/mission/challenging?memberId={memberId}&pageNumber={pageNumber}
+//    @GetMapping("/challenging")
+//    public ResponseEntity<?> getChallengingMissionPage(@RequestParam(name="memberId") Long memberId,
+//                                                    @RequestParam(name="pageNumber") Integer pageNumber) throws Exception {
+//        try {
+//            Page<MissionDto.StatusResponse> challenginMissionPage = missionQueryService.pagedMissionsByMemberIdAndMissionStatus(memberId, MissionStatus.CHALLENGING, pageNumber);
+//            return ResponseEntity.ok(challenginMissionPage);
+//        } catch (IllegalArgumentException e) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                    .body(e.getMessage());
+//        }
+//    }
+//
+//    // 멤버별 진행완료된 미션 불러오기
+//    // localhost:8080/api/mission/complete?memberId={memberId}&pageNumber={pageNumber}
+//    @GetMapping("/complete")
+//    public ResponseEntity<?> getCompleteMissionPage(@RequestParam(name="memberId") Long memberId,
+//                                                       @RequestParam(name="pageNumber") Integer pageNumber) throws Exception {
+//        try {
+//            Page<MissionDto.StatusResponse> completeMissionPage = missionQueryService.pagedMissionsByMemberIdAndMissionStatus(memberId, MissionStatus.COMPLETE, pageNumber);
+//            return ResponseEntity.ok(completeMissionPage);
+//        } catch (IllegalArgumentException e) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                    .body(e.getMessage());
+//        }
+//    }
+
 }

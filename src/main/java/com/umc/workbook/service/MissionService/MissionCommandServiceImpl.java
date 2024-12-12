@@ -8,6 +8,7 @@ import com.umc.workbook.converter.MissionConverter;
 import com.umc.workbook.domain.Member;
 import com.umc.workbook.domain.Mission;
 import com.umc.workbook.domain.Store;
+import com.umc.workbook.domain.enums.MissionStatus;
 import com.umc.workbook.domain.mapping.MemberMission;
 import com.umc.workbook.dto.mission.MissionRequest;
 import com.umc.workbook.dto.mission.MissionResponse;
@@ -30,7 +31,6 @@ public class MissionCommandServiceImpl implements MissionCommandService{
     private final MissionRepository missionRepository;
     private final MemberRepository memberRepository;
     private final MemberMissionRepository memberMissionRepository;
-
     private final StoreRepository storeRepository;
 
     @Override
@@ -65,5 +65,26 @@ public class MissionCommandServiceImpl implements MissionCommandService{
         memberMissionRepository.save(memberMission);
 
         return MissionConverter.createMemberMissionResultDTO(memberMission);
+    }
+
+    // 진행중인 미션을 완료로 변경
+    @Transactional
+    @Override
+    public MissionResponse.UpdateMissionStatusDTO setMemberMissionStatus(Long memberId, Long memberMissionId) {
+        // 존재하지 않은 멤버-미션일 경우 에러 반환
+        MemberMission memberMission = memberMissionRepository.findById(memberMissionId)
+                .orElseThrow(() -> new MissionHandler(ErrorStatus.MISSION_NOT_FOUND));
+
+        // 멤버의 멤버-미션이 아닐 경우 에러 반환
+        if(!memberMission.getMission().getId().equals(memberId))
+            throw new MissionHandler(ErrorStatus.MISSION_NOT_EQUAL_MEMBER);
+
+        // 이미 도전중인 미션일 경우 에러 반환
+        if(memberMission.getStatus().equals(MissionStatus.COMPLETE))
+            throw new MissionHandler(ErrorStatus.MISSION_ALREADY_COMPLETE);
+
+        memberMission.setStatus(MissionStatus.COMPLETE);
+
+        return MissionConverter.toUpdateMissionStatusDTO(memberMission);
     }
 }
