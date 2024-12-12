@@ -24,6 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class MissionQueryServiceImpl implements MissionQueryService {
+    private final MemberMissionRepository memberMissionRepository;
     private final MissionRepository missionRepository;
     private final MemberRepository memberRepository;
     private final StoreRepository storeRepository;
@@ -72,8 +73,20 @@ public class MissionQueryServiceImpl implements MissionQueryService {
     @Override
     public MissionResponse.StoreMissionPreViewListDTO getStoreMissionPage(Long storeId, Integer page) {
         Store store = storeRepository.findById(storeId).get();
+
+        // 가게 아이디와 일치하는 미션 페이지 조회
         Page<Mission> storeMissionPage = missionRepository.findAllMissionByStoreId(storeId, pageRequest(page));
 
         return MissionConverter.toStoreMissionPreViewListDTO(storeMissionPage, store.getStoreName());
+    }
+
+    // 멤버의 미션 상태에 따른 미션 목록 조회 (페이지네이션 적용)
+    @Override
+    public MissionResponse.MemberMissionPreViewListDTO getMemberMissionPage(Long memberId, String status, Integer page) {
+        Member member = memberRepository.findById(memberId).get();
+        // 멤버, 미션 상태와 일치하는 멤버-미션 페이지 조회
+        Page<MemberMission> memberMissionPage = memberMissionRepository.findAllMemberMissionsByMemberAndStatus(member, MissionStatus.valueOf(status.toUpperCase()), pageRequest(page));
+
+        return MissionConverter.toMemberMissionPreViewListDTO(memberMissionPage);
     }
 }
