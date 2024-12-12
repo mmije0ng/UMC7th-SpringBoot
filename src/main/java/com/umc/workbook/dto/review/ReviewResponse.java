@@ -38,6 +38,7 @@ public class ReviewResponse {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ReviewPreViewDTO{ // 리뷰 응답
+        Long reviewId; // 리뷰 아이디
         String ownerNickName; // 리뷰 작성자 이름
         Float score; // 리뷰 평점
         String content; // 리뷰 내용

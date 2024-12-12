@@ -31,6 +31,7 @@ public class ReviewConverter {
     // 리뷰 조회 관련 컨버터
     public static ReviewResponse.ReviewPreViewDTO toReviewPreViewDTO(Review review){
         return ReviewResponse.ReviewPreViewDTO.builder()
+                .reviewId(review.getId())
                 .ownerNickName(review.getMember().getNickName())
                 .score(review.getReviewScore().floatValue())
                 .content(review.getReviewContent())
