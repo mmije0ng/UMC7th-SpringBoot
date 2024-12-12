@@ -61,6 +61,7 @@ public class MissionResponse {
     @NoArgsConstructor
     @AllArgsConstructor
     public static abstract class BaseMissionPreviewDTO { // 공통 미션 조회
+        Long missionId; // 미션 아이디
         String content; // 미션 내용
         Integer money; // 기준 금액
         Integer point; // 적립 포인트

@@ -30,8 +30,7 @@ public class MissionConverter {
 
     // 멤버-미션 등록 응답 dto로 변환
     public static MissionResponse.CreateMemberMissionResultDTO createMemberMissionResultDTO(MemberMission memberMission){
-        return MissionResponse.CreateMemberMissionResultDTO
-                .builder()
+        return MissionResponse.CreateMemberMissionResultDTO.builder()
                 .missionContent(memberMission.getMission().getMissionContent())
                 .missionStatus(memberMission.getStatus().name())
                 .expiredAt(memberMission.getExpiredAt())
@@ -41,6 +40,7 @@ public class MissionConverter {
     // 가게 미션 조회 관련 컨버터
     public static MissionResponse.StoreMissionPreviewDTO toStoreMissionPreviewDTO(Mission mission) {
         return MissionResponse.StoreMissionPreviewDTO.builder()
+                .missionId(mission.getId()) // 미션 아이디
                 .content(mission.getMissionContent()) // 미션 내용
                 .money(mission.getMissionMoney())     // 기준 금액
                 .point(mission.getMissionPoint())     // 적립 포인트
@@ -71,6 +71,7 @@ public class MissionConverter {
         return MissionResponse.MemberMissionPreviewDTO.builder()
                 .missionStatus(memberMission.getStatus().name()) // 미션 상태
                 .storeName(memberMission.getMission().getStore().getStoreName())
+                .missionId(memberMission.getId()) // 멤버-미션 아이디
                 .content(memberMission.getMission().getMissionContent()) // 미션 내용
                 .money(memberMission.getMission().getMissionMoney())     // 기준 금액
                 .point(memberMission.getMission().getMissionPoint())     // 적립 포인트
