@@ -81,4 +81,12 @@ public class MissionResponse {
         String missionStatus; // 미션 상태
         String storeName; // 가게 이름
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UpdateMissionStatusDTO { // 미션 상태를 도전완료로 변경
+        String missionStatus; // 변경된 미션 상태
+    }
 }

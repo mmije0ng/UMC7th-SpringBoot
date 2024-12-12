@@ -95,4 +95,11 @@ public class MissionConverter {
                 .isLast(memberMissionPage.isLast())
                 .build();
     }
+
+    // 미션 상태를 도전완료로 변경 컨버터
+    public static MissionResponse.UpdateMissionStatusDTO toUpdateMissionStatusDTO(MemberMission memberMission){
+        return MissionResponse.UpdateMissionStatusDTO.builder()
+                .missionStatus(memberMission.getStatus().name())
+                .build();
+    }
 }

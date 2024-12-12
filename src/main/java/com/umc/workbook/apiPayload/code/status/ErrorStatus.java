@@ -40,6 +40,8 @@ public enum ErrorStatus implements BaseErrorCode {
     MISSION_NOT_FOUND(HttpStatus.BAD_REQUEST, "MISSION4001", "존재하지 않는 미션입니다."),
     MISSION_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "MISSION4002", "이미 도전 중 혹은 완료한 미션입니다."),
     MISSION_STATUS_NOT_FOUND(HttpStatus.BAD_REQUEST, "MISSION4003", "존재하지 않는 미션 상태입니다."),
+    MISSION_ALREADY_COMPLETE(HttpStatus.BAD_REQUEST, "MISSION4004", "이미 도전 완료된 미션입니다."),
+    MISSION_NOT_EQUAL_MEMBER(HttpStatus.BAD_REQUEST, "MISSION4005", "멤버의 미션이 아닙니다."),
 
     // 페이지 번호
     PAGE_NOT_FOUND(HttpStatus.BAD_REQUEST, "PAGE4001", "페이지 번호는 1 이상이어야 합니다.");
