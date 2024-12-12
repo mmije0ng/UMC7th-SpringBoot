@@ -52,7 +52,7 @@ public class MissionConverter {
     public static MissionResponse.StoreMissionPreViewListDTO toStoreMissionPreViewListDTO(Page<Mission> storeMissionPage, String storeName){
         // Mission 리스트를 StoreMissionPreviewDTO로 변환
         List<MissionResponse.StoreMissionPreviewDTO> storeMissionList = storeMissionPage.stream()
-                .map(MissionConverter::toStoreMissionPreviewDTO) // Misson을 StoreMissionPreviewDTO로 변환
+                .map(MissionConverter::toStoreMissionPreviewDTO) // Mission을 StoreMissionPreviewDTO로 변환
                 .toList();
 
         return MissionResponse.StoreMissionPreViewListDTO.builder()
@@ -63,6 +63,35 @@ public class MissionConverter {
                 .isFirst(storeMissionPage.isFirst())
                 .isLast(storeMissionPage.isLast())
                 .storeName(storeName)
+                .build();
+    }
+
+    // 멤버 미션 조회 관련 컨버터
+    public static MissionResponse.MemberMissionPreviewDTO toMemberMissionPreviewDTO(MemberMission memberMission) {
+        return MissionResponse.MemberMissionPreviewDTO.builder()
+                .missionStatus(memberMission.getStatus().name()) // 미션 상태
+                .storeName(memberMission.getMission().getStore().getStoreName())
+                .content(memberMission.getMission().getMissionContent()) // 미션 내용
+                .money(memberMission.getMission().getMissionMoney())     // 기준 금액
+                .point(memberMission.getMission().getMissionPoint())     // 적립 포인트
+                .createdAt(memberMission.getCreatedAt())    // 생성일자
+                .build();
+    }
+
+    // 멤버 미션 목록 조회 관련 컨버터
+    public static MissionResponse.MemberMissionPreViewListDTO toMemberMissionPreViewListDTO(Page<MemberMission> memberMissionPage){
+        // MemberMissionList 리스트를 MemberMissionPreviewDTO로 변환
+        List<MissionResponse.MemberMissionPreviewDTO> memberMissionList = memberMissionPage.stream()
+                .map(MissionConverter::toMemberMissionPreviewDTO) // Mission을 MemberMissionPreviewDTO로 변환
+                .toList();
+
+        return MissionResponse.MemberMissionPreViewListDTO.builder()
+                .missionList(memberMissionList)
+                .listSize(memberMissionList.size())
+                .totalPage(memberMissionPage.getTotalPages())
+                .totalElements(memberMissionPage.getTotalElements())
+                .isFirst(memberMissionPage.isFirst())
+                .isLast(memberMissionPage.isLast())
                 .build();
     }
 }

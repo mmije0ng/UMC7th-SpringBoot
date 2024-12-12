@@ -16,4 +16,7 @@ public interface MissionQueryService {
 
     // 가게의 미션 목록 조회 (페이지네이션 적용)
     MissionResponse.StoreMissionPreViewListDTO getStoreMissionPage(Long storeId, Integer page);
+
+    // 멤버의 미션 상태에 따른 목록 조회 (페이지네이션 적용)
+    MissionResponse.MemberMissionPreViewListDTO getMemberMissionPage(Long memberId, String status, Integer page);
 }
