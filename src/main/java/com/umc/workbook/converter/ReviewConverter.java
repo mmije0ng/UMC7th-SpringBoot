@@ -40,17 +40,17 @@ public class ReviewConverter {
 
     // 리뷰 목록 조회 관련 컨버터
     // Page를 파라미터로 받음
-    public static ReviewResponse.ReviewPreViewListDTO toReviewPreViewListDTO(Page<Review> storeReviewPages){
+    public static ReviewResponse.ReviewPreViewListDTO toReviewPreViewListDTO(Page<Review> storeReviewPage){
         // Review 리스트를 ReviewPreViewDTO 리스트로 변환
-        List<ReviewResponse.ReviewPreViewDTO> reviewList = storeReviewPages.stream()
+        List<ReviewResponse.ReviewPreViewDTO> reviewList = storeReviewPage.stream()
                 .map(ReviewConverter::toReviewPreViewDTO) // Review를 ReviewPreViewDTO로 변환
                 .toList();
 
         return ReviewResponse.ReviewPreViewListDTO.builder()
-                .isFirst(storeReviewPages.isFirst())
-                .isLast(storeReviewPages.isLast())
-                .totalPage(storeReviewPages.getTotalPages())
-                .totalElements(storeReviewPages.getTotalElements())
+                .isFirst(storeReviewPage.isFirst())
+                .isLast(storeReviewPage.isLast())
+                .totalPage(storeReviewPage.getTotalPages())
+                .totalElements(storeReviewPage.getTotalElements())
                 .listSize(reviewList.size())
                 .reviewList(reviewList)
                 .build();
