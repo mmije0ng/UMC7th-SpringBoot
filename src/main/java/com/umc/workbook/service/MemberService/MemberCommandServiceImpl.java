@@ -11,6 +11,7 @@ import com.umc.workbook.dto.member.MemberRequest;
 import com.umc.workbook.repository.FoodCategoryRepository.FoodCategoryRepository;
 import com.umc.workbook.repository.MemberRepository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,17 +25,19 @@ public class MemberCommandServiceImpl implements MemberCommandService{
 
     private final MemberRepository memberRepository;
     private final FoodCategoryRepository foodCategoryRepository;
+    private final PasswordEncoder passwordEncoder; // 비밀번호 암호화
 
     // 회원가입
     @Override
     @Transactional
-    public Member joinMember(MemberRequest.JoinDTO request) {
+    public Member joinMember(MemberRequest.SignUpDTO request) {
 
         // 컨버터로 멤버 엔티티 생성
         Member member = MemberConverter.toMember(request);
+        member.encodePassword(passwordEncoder.encode(request.getPassword())); // 비밀번호를 암호화 
 
-        // 요청 dto로 넘어온 음식 카테고리 아이디와 일치하는 FoodCategory를 리스트로
-        List<FoodCategory> foodCategoryList = request.getMemberPretendFoodList().stream()
+        // 요청 dto로 넘어온 음식 카테고리 아이디와 일치하는 FoodCategory를 리스트로 변환
+        List<FoodCategory> foodCategoryList = request.getPreferCategory().stream()
                 .map(foodCategoryId -> foodCategoryRepository.findById(foodCategoryId)
                         .orElseThrow(() -> new FoodCategoryHandler(ErrorStatus.FOOD_CATEGORY_NOT_FOUND)))
                 .collect(Collectors.toList());

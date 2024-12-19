@@ -12,39 +12,41 @@ import java.util.ArrayList;
 public class MemberConverter {
 
     // 멤버 등록
-    public static Member toMember(MemberRequest.JoinDTO request){
-        Gender gender = null;
-        switch (request.getGender()){
-            case 1:
-                gender = Gender.MALE;
-                break;
-            case 2:
-                gender = Gender.FEMALE;
-                break;
-            case 3:
-                gender = Gender.NONE;
-                break;
-        }
+    public static Member toMember(MemberRequest.SignUpDTO request){
+        Gender gender = switch (request.getGender()) {
+            case 1 -> Gender.MALE;
+            case 2 -> Gender.FEMALE;
+            case 3 -> Gender.NONE;
+            default -> null;
+        };
 
         return Member.builder()
-                .loginId(request.getLoginId())
-                .loginPassword(request.getLoginPassword())
-                .nickName(request.getNickName())
+                .email(request.getEmail())
+                .loginPassword(request.getPassword())
+                .nickName(request.getName())
                 .gender(gender)
-                .birth(request.getBirth())
-                .memberAddress(request.getMemberAddress())
-                .phoneNumber(request.getPhoneNumber())
-                .memberPretendFoodList(new ArrayList<>()) // new ArrayList<>()로 초기화
+                .birth(formatBirthDate(request))
+                .memberAddress(formatFullAddress(request))
+                .memberPretendFoodList(new ArrayList<>())
+                .role(request.getRole())
                 .build();
     }
 
-
     // 회원가입 응답 dto 컨버터
-    public static MemberResponse.JoinResultDTO toJointResultDTO(Member member){
-        return MemberResponse.JoinResultDTO.builder()
+    public static MemberResponse.SignUpResultDTO toSignUpResultDTO(Member member){
+        return MemberResponse.SignUpResultDTO.builder()
                 .memberId(member.getId())
                 .createdAt(LocalDateTime.now())
                 .build();
     }
 
+    // 생년월일 포맷팅 메서드
+    private static String formatBirthDate(MemberRequest.SignUpDTO request) {
+        return String.format("%s-%s-%s", request.getBirthYear(), request.getBirthMonth(), request.getBirthDay());
+    }
+
+    // 전체 주소 포맷팅 메서드
+    private static String formatFullAddress(MemberRequest.SignUpDTO request) {
+        return String.format("%s %s", request.getAddress(), request.getSpecAddress());
+    }
 }

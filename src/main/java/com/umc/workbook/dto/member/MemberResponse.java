@@ -24,7 +24,7 @@ public class MemberResponse {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class JoinResultDTO{
+    public static class SignUpResultDTO {
         Long memberId; // 멤버 pk
         LocalDateTime createdAt; // 생성일자
     }

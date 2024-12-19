@@ -2,6 +2,7 @@ package com.umc.workbook.domain;
 
 import com.umc.workbook.domain.commons.BaseEntity;
 import com.umc.workbook.domain.enums.Gender;
+import com.umc.workbook.domain.enums.Role;
 import com.umc.workbook.domain.mapping.MemberMission;
 import com.umc.workbook.domain.mapping.MemberPretendFood;
 import jakarta.persistence.*;
@@ -28,7 +29,7 @@ public class Member extends BaseEntity {
     @Column(nullable = false, length = 20)
     private String loginId; // 로그인 아이디
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false)
     private String loginPassword; // 로그인 비밀번호
 
     @Enumerated(EnumType.STRING)
@@ -43,10 +44,13 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private String memberAddress; // 주소
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String email; // 이메일
 
-    @Column(nullable = false, length = 20)
+    @Enumerated(EnumType.STRING)
+    private Role role; // 역할
+
+    @Column(length = 20)
     private String phoneNumber; // 전화번호
 
     @Column(columnDefinition = "TINYINT(1) DEFAULT 0")
@@ -81,4 +85,8 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AlarmSetting> alarmSettingList = new ArrayList<>(); // 알림 설정과 일대다 양방향
+
+    public void encodePassword(String loginPassword) {
+        this.loginPassword = loginPassword;
+    }
 }
