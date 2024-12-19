@@ -26,7 +26,7 @@ public class Member extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // pk
 
-    @Column(nullable = false, length = 20)
+    @Column(length = 20)
     private String loginId; // 로그인 아이디
 
     @Column(nullable = false)
@@ -38,7 +38,7 @@ public class Member extends BaseEntity {
     @Column(nullable = false, length = 10)
     private String nickName; // 닉네임
 
-    @Column(nullable = false, length = 20)
+    @Column(length = 20)
     private String birth; // 생년월일
 
     @Column(nullable = false)

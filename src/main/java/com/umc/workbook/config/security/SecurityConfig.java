@@ -24,12 +24,21 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasRole("ADMIN") // 관리자만 접근 가능
                         .anyRequest().authenticated() // 그 외의 모든 요청에 대한 인증 요청
                 )
+
                 // 폼 기반 로그인 설정
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/home", true) // 로그인 성공시 리다이렉트
                         .permitAll() // 모든 사용자 접근 가능
                 )
+
+                // 소셜 로그인
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/home", true)
+                        .permitAll()
+                )
+
                 .logout((logout) -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout") // 로그아웃 성공 시 리다이렉트
