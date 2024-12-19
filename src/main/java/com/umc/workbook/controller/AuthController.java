@@ -19,9 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private final MemberCommandService memberCommandService;
 
-    @PostMapping("/join")
-    public ApiResponse <MemberResponse.JoinResultDTO> join(@RequestBody @Valid MemberRequest.JoinDTO request){
+    // 회원가입
+    @PostMapping("/signup")
+    public ApiResponse <MemberResponse.SignUpResultDTO> join(@RequestBody @Valid MemberRequest.SignUpDTO request){
         Member member = memberCommandService.joinMember(request);
-        return ApiResponse.onSuccess(MemberConverter.toJointResultDTO(member));
+        return ApiResponse.onSuccess(MemberConverter.toSignUpResultDTO(member));
     }
 }

@@ -6,5 +6,5 @@ import com.umc.workbook.dto.member.MemberRequest;
 public interface MemberCommandService {
 
     // 회원가입
-    Member joinMember(MemberRequest.JoinDTO request);
+    Member joinMember(MemberRequest.SignUpDTO request);
 }

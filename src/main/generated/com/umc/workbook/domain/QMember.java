@@ -65,6 +65,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final ListPath<Review, QReview> reviewList = this.<Review, QReview>createList("reviewList", Review.class, QReview.class, PathInits.DIRECT2);
 
+    public final EnumPath<com.umc.workbook.domain.enums.Role> role = createEnum("role", com.umc.workbook.domain.enums.Role.class);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> updatedAt = _super.updatedAt;
 

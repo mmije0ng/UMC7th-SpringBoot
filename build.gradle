@@ -23,7 +23,7 @@ dependencies {
     implementation 'org.hibernate.orm:hibernate-core:6.0.2.Final'
     implementation 'mysql:mysql-connector-java:8.0.33'
 
-    // Bean Validation을 위한 Hibernate Validator 추가
+    // Bean Validation을 위한 Hibernate Validator
     implementation 'org.hibernate.validator:hibernate-validator:8.0.0.Final' // 최신 호환 버전 사용
 
     // QueryDSL
@@ -51,6 +51,14 @@ dependencies {
 
     // validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Spring Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    testImplementation 'org.springframework.security:spring-security-test'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
+
+    // Thymeleaf
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 }
 
 
