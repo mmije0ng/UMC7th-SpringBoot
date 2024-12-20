@@ -1,4 +1,4 @@
-package com.umc.workbook.config.security;
+package com.umc.workbook.config.security.OAuth2;
 
 public interface OAuth2UserInfo {
     String getProvider();      // OAuth2 공급자 (e.g., kakao, google)

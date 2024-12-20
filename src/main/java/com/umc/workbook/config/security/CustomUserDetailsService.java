@@ -22,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         CustomUserInfoDTO dto = CustomUserInfoDTO.builder()
                 .memberId(member.getId())
-                .role(member.getRole().name())
+                .role(member.getRole())
                 .email(member.getEmail())
                 .password(member.getLoginPassword())
                 .nickName(member.getNickName())

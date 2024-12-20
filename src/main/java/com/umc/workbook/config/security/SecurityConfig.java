@@ -1,5 +1,7 @@
 package com.umc.workbook.config.security;
 
+import com.umc.workbook.config.security.OAuth2.GoogleUserDetails;
+import com.umc.workbook.config.security.OAuth2.KakaoUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

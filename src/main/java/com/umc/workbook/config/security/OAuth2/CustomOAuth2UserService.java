@@ -1,4 +1,4 @@
-package com.umc.workbook.config.security;
+package com.umc.workbook.config.security.OAuth2;
 
 import com.umc.workbook.domain.Member;
 import com.umc.workbook.domain.enums.Gender;
@@ -35,7 +35,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService { // 커�
         Map<String, Object> attributes = oAuth2User.getAttributes();
 
         String provider = userRequest.getClientRegistration().getRegistrationId();
-
         OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(provider, attributes);
         log.info("소셜 로그인 이메일: {}, 닉네임: {}", oAuth2UserInfo.getEmail(), oAuth2UserInfo.getName());
 

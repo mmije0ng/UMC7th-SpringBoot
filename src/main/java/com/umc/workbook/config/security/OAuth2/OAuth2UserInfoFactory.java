@@ -1,4 +1,4 @@
-package com.umc.workbook.config.security;
+package com.umc.workbook.config.security.OAuth2;
 
 import java.util.Map;
 

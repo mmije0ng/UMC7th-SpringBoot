@@ -13,5 +13,5 @@ public class CustomUserInfoDTO {
     private String email;
     private String password;
     private String nickName;
-    private String role;
+    private Role role;
 }

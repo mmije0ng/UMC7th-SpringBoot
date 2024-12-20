@@ -26,12 +26,9 @@ public class CustomUserDetails implements UserDetails, OAuth2User {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<String> roles = new ArrayList<>();
-        roles.add(customUser.getRole());
-
-        return roles.stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+        return customUser.getRole() != null
+                ? List.of(new SimpleGrantedAuthority("ROLE_" + customUser.getRole().name()))
+                : List.of();
     }
 
     @Override
