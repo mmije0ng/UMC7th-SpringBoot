@@ -1,5 +1,6 @@
 package com.umc.workbook.config.security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -8,10 +9,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-// 애플리케이션의 보안 정책을 정의
+@RequiredArgsConstructor
 @EnableWebSecurity // Spring Security 설정 활성화
 @Configuration
-public class SecurityConfig {
+public class SecurityConfig { // 애플리케이션의 보안 정책을 정의
+    private final CustomUserDetailsService customUserDetailsService; // CustomUserDetailsService 정의
 
     // SecurityFilterChain 정의
     // HttpSecurity 객체를 통해 보안 설정 구성
