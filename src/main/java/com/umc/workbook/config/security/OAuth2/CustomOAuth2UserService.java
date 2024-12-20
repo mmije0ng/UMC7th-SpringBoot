@@ -1,4 +1,4 @@
-package com.umc.workbook.config.security;
+package com.umc.workbook.config.security.OAuth2;
 
 import com.umc.workbook.domain.Member;
 import com.umc.workbook.domain.enums.Gender;
@@ -33,18 +33,18 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService { // 커�
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
         Map<String, Object> attributes = oAuth2User.getAttributes();
-        Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
-       
-        String nickname = (String) properties.get("nickname");  // 카카오 API에서 제공하는 사용자 정보 중 nickname을 추출
-        String email = nickname + "@kakao.com"; // 임시 이메일 생성
+
+        String provider = userRequest.getClientRegistration().getRegistrationId();
+        OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(provider, attributes);
+        log.info("소셜 로그인 이메일: {}, 닉네임: {}", oAuth2UserInfo.getEmail(), oAuth2UserInfo.getName());
 
         // 사용자 정보 저장 또는 업데이트
-        Member member = saveOrUpdateUser(email, nickname);
+        Member member = saveOrUpdateUser(oAuth2UserInfo.getEmail(), oAuth2UserInfo.getName());
         log.info("로그인된 Member memberId: {}, 닉네임: {}, 이메일: {}", member.getId(), member.getNickName(), member.getEmail());
 
         // 이메일을 Principal로 사용하기 위해 attributes 수정
         Map<String, Object> modifiedAttributes = new HashMap<>(attributes);
-        modifiedAttributes.put("email", email);
+        modifiedAttributes.put("email", oAuth2UserInfo.getEmail());
 
         // DefaultOAuth2User 객체를 생성하여 반환
         return new DefaultOAuth2User(
