@@ -20,8 +20,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.awt.*;
 
 @Slf4j
 @Validated // 클래스 레벨에 추가
@@ -34,11 +38,13 @@ public class ReviewController {
     private final ReviewQueryService reviewQueryService;
 
     // 리뷰 추가
-    @PostMapping
-    ApiResponse<ReviewResponse.CreateReviewResultDTO> createReview (@RequestParam(name = "memberId") @ExistMember Long memberId,
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    ApiResponse<ReviewResponse.CreateReviewResultDTO> createReview (@Parameter(content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE))
+                                                                    @RequestParam(name = "memberId") @ExistMember Long memberId,
                                                                     @RequestParam(name="storeId") @ExistStore Long storeId,
-                                                                    @RequestBody @Valid ReviewRequest.CreateReviewDTO request) {
-        ReviewResponse.CreateReviewResultDTO result = reviewCommandService.addReview(memberId, storeId, request);
+                                                                    @RequestPart("request") @Valid ReviewRequest.CreateReviewDTO request,
+                                                                    @RequestPart("reviewImage") MultipartFile reviewImage) {
+        ReviewResponse.CreateReviewResultDTO result = reviewCommandService.addReview(memberId, storeId, request, reviewImage);
         return ApiResponse.onSuccess(result);
     }
 

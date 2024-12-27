@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @RequiredArgsConstructor
 @EnableWebSecurity // Spring Security 설정 활성화
@@ -27,6 +29,15 @@ public class SecurityConfig { // 애플리케이션의 보안 정책을 정의
                         .requestMatchers("/", "/home", "/signup", "/members/signup", "/api/auth/signup", "/css/**").permitAll() // 인증 없이 접근 가능한 경로 지정
                         .requestMatchers("/admin/**").hasRole("ADMIN") // 관리자만 접근 가능
                         .anyRequest().authenticated() // 그 외의 모든 요청에 대한 인증 요청
+                )
+
+                // CSRF
+                .csrf(csrf -> csrf
+                    .ignoringRequestMatchers(
+                            new AntPathRequestMatcher("/api/**")
+                    )
+                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                    .disable()
                 )
 
                 // 폼 기반 로그인 설정
