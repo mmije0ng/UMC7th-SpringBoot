@@ -20,7 +20,7 @@ public class Review extends BaseEntity {
     @Column(nullable = false)
     private String reviewContent; // 리뷰 내용
 
-    @Column(columnDefinition = "json")
+//    @Column(columnDefinition = "json")
     private String reviewImage; // 리뷰 이미지
 
     @ManyToOne(fetch = FetchType.LAZY)

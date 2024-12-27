@@ -12,11 +12,12 @@ import java.util.stream.Collectors;
 public class ReviewConverter {
 
     // 리뷰 엔티티 전환
-    public static Review toReview(ReviewRequest.CreateReviewDTO request){
+    public static Review toReview(ReviewRequest.CreateReviewDTO request, String imageUrl){
         return Review.builder()
                 .reviewScore(request.getReviewScore())
                 .reviewContent(request.getReviewContent())
-                .reviewImage(JsonConverter.convertImageListToJson(request.getReviewImageList()))
+//                .reviewImage(JsonConverter.convertImageListToJson(request.getReviewImageList()))
+                .reviewImage(imageUrl)
                 .build();
     }
 
